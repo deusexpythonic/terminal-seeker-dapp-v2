@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-s`cale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TERMINAL-SOLANA-SEEKER</title>
     <style>
         body {
@@ -67,13 +67,23 @@
         </div>
     </div>
     <script>
-        // Variable globale pour stocker la public key de votre programme Solana
-        const programId = new solanaWeb3.PublicKey("3mpYuoNqF7DD1bmcmMY4BZXpH3SLytDxvrfwYZHZsjsT");
-        // Le reste de votre code
+        const solanaWeb3 = {
+            PublicKey: class {
+                constructor(address) {
+                    this.address = address;
+                }
+                toString() {
+                    return this.address;
+                }
+            }
+        };
+
+        const programId = new solanaWeb3.PublicKey("3mpYuoNqF7DD1bmcmMY4BZXpH3SLytDxvrfwYZHZsjsT"); // REMPLACEZ CETTE ADRESSE PAR LA VÔTRE
+
         const output = document.getElementById('output');
         const commandInput = document.getElementById('command-input');
-        let storyState = 0; // 0: intro, 1: quete, 2: connexion, 3: jeu
-        let wallet; // Variable pour stocker l'objet du portefeuille
+        let storyState = 0;
+        let wallet;
 
         function appendToTerminal(text, isCommand = false) {
             if (isCommand) {
@@ -161,7 +171,6 @@
             }
         });
 
-        // Message de bienvenue initial
         appendToTerminal("Bienvenue, Seeker. L'univers post-IA est silencieux. Il n'y a que le terminal. Tapez 'start' pour commencer votre voyage.");
     </script>
 </body>
